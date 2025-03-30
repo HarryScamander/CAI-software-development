@@ -1,0 +1,5 @@
+Vichet 100
+KKK 4
+hhh 2
+g 0
+g 4
