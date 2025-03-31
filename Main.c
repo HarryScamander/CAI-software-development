@@ -90,7 +90,11 @@ int GenerateQuestion(int questionNumber) {
             break;
 
         case 1:
-            if (num1 < num2) return 0;
+            if (num1 < num2) {
+                int temp = num1;
+                num1 = num2;
+                num2 = temp;
+            }
             correctAnswer = num1 - num2;
             printf("\nQ: %d - %d = ?\n", num1, num2);
             break;
@@ -101,7 +105,10 @@ int GenerateQuestion(int questionNumber) {
             break;
 
         case 3:
-            if (num2 == 0 || num1 % num2 != 0) return 0;
+            while (num2 == 0 || num1 % num2 != 0) {
+                num1 = GetRandomNumber(1);
+                num2 = GetRandomNumber(1);
+            }
             correctAnswer = num1 / num2;
             printf("\nQ: %d / %d = ?\n", num1, num2);
             break;
@@ -109,7 +116,11 @@ int GenerateQuestion(int questionNumber) {
 
     while (attempts < 5) {
         printf("Your Answer: ");
-        scanf("%d", &userAnswer);
+        if (scanf("%d", &userAnswer) != 1) {
+            printf(RED "Invalid input! Skipping question.\n" RESET);
+            while (getchar() != '\n'); 
+            return 0;
+        }
 
         if (userAnswer == correctAnswer) {
             printf(GREEN "Correct!\n" RESET);
